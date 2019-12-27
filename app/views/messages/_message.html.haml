@@ -1,0 +1,10 @@
+.main__box
+  .main__box__info
+    %p.main__box__info__name
+      = message.user.name
+    %p.main__box__info__time
+      = message.created_at.strftime("%Y/%m/%d %H:%M")
+  %p.main__box__messege
+    - if message.content.present?
+      = message.content
+    = image_tag message.image.url, class: 'main__box__messege__image' if message.image.present?
