@@ -2,31 +2,25 @@
   .header
     .header__left
       %h2.header__left__group
-        saru
+        = @group.name
       %ul.header__left__member
         Member：
         %li.header__left__member__name
-          osaru
+        = @member
+          
     .header__edit
-      = link_to "#", class: "header__edit__btn" do
-        Editt
+      = link_to edit_group_path(current_user), class: "header__edit__btn" do
+        Edit
 
   .main
-    .main__box
-      .main__box__info
-        %p.main__box__info__name
-          osaru
-        %p.main__box__info__time
-          2019/12/01(Sun) 13:38:11
-      %p.main__box__messege
-        kaa
+    = render @messages
 
   .messege-form
-    %form.input-box
-      .input-box__text
-        %input.input-box__text__input{name: "messege", placeholder: "type a message", type: "text"}
-        %label{class: "input-box__text__image"}
-          = icon('fas', 'image')
-          %input.input-box__text__file{type: "file"}
-      %input.input-box__send{name: "comit", data: "Send", type: "submit", value: "Send"}
+    = form_for [@group, @message] do |f|
+      = f.text_field :content, class: 'input-box__input', placeholder: 'type a message'
+      .input-box
+        = f.label :image, class: 'input-box__image' do
+          = icon('fas', 'image', class: 'icon')
+          = f.file_field :image, class: 'input-box__file'
+      = f.submit 'Send', class: 'send'
         
