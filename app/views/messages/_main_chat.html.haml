@@ -6,7 +6,9 @@
       %ul.header__left__member
         Member：
         %li.header__left__member__name
-        = @member
+        -if @users
+          - @users.each do |u|
+            = u.name
           
     .header__edit
       = link_to edit_group_path(current_user), class: "header__edit__btn" do
@@ -15,7 +17,7 @@
   .main
     = render @messages
 
-  .messege-form
+  .message-form
     = form_for [@group, @message] do |f|
       = f.text_field :content, class: 'input-box__input', placeholder: 'type a message'
       .input-box
