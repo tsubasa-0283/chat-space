@@ -1,9 +1,9 @@
-.main__box
+.main__box{data: {message: {id: message.id}}}
   .main__box__info
     %p.main__box__info__name
       = message.user.name
     %p.main__box__info__time
-      = message.created_at.strftime("%Y/%m/%d %H:%M")
+      = message.created_at.strftime("%Y年%m月%d日 %H時%M分")
   .main__box__message
     - if message.content.present?
       = message.content

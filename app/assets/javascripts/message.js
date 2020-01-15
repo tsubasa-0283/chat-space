@@ -58,4 +58,31 @@ $('#new_message').on('submit', function(e){
   });
   return false;
 })
+  var reloadMessages = function() {
+      last_message_id = $('.main__box:last').data("message-id");
+      $.ajax({
+        url: "api/messages",
+        type: 'get',
+        dataType: 'json',
+        data: {id: last_message_id}
+      })
+      .done(function(messages) {
+        if (messages.length !== 0) {
+          var insertHTML = '';
+          $.each(messages, function(i, message) {
+            insertHTML += buildHTML(message)
+          });
+          $('.main').append(insertHTML);
+          $('.main').animate({ scrollTop: $('.main')[0].scrollHeight});
+          $("#new_message")[0].reset();
+          $(".form__submit").prop("disabled", false);
+        }
+      })
+      .fail(function() {
+        console.log('error');
+      });
+    };
+  if (document.location.href.match(/\/groups\/\d+\/messages/)) {
+    setInterval(reloadMessages, 7000);
+  }
 });
